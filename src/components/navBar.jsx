@@ -1,18 +1,30 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import $ from "jquery";
+// import $ from "jquery";
 
 class NavBar extends Component {
   state = {};
 
-  renderCalculator = () => {
+  renderTest = () => {
     if (this.props.isLogin) {
       return (
-        <li className="nav-item">
-          <Link className="nav-link active" to="/calculator">
-            计算器
-          </Link>
-        </li>
+        <React.Fragment>
+          <li className="nav-item">
+            <Link className="nav-link active" to="/test/memory">
+              记忆力测试
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link active" to="/test/reflex">
+              反应力测试
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link active" to="/test/focus">
+              专注力测试
+            </Link>
+          </li>
+        </React.Fragment>
       );
     }
     return "";
@@ -20,16 +32,6 @@ class NavBar extends Component {
 
   handleLogout = (e) => {
     e.preventDefault();
-    $.ajax({
-      url: "https://app165.acapp.acwing.com.cn/calculator/logout/",
-      type: "get",
-      success: (resp) => {
-        console.log(resp);
-        if (resp.result === "success") {
-          window.location.href = "/";
-        }
-      },
-    });
   };
 
   renderUser = () => {
@@ -55,11 +57,7 @@ class NavBar extends Component {
             <Link className="nav-link active">{this.props.username}</Link>
           </li>
           <li className="nav-item">
-            <Link
-              className="nav-link active"
-              onClick={
-                this.handleLogout}
-            >
+            <Link className="nav-link active" onClick={this.handleLogout}>
               登出
             </Link>
           </li>
@@ -74,7 +72,7 @@ class NavBar extends Component {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
             <Link className="navbar-brand" to="/">
-              Calculator
+              能力测试
             </Link>
             <button
               className="navbar-toggler"
@@ -89,12 +87,7 @@ class NavBar extends Component {
             </button>
             <div className="collapse navbar-collapse" id="navbarText">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                  <Link className="nav-link active" to="/home">
-                    主页
-                  </Link>
-                </li>
-                {this.renderCalculator()}
+                {this.renderTest()}
               </ul>
               {this.renderUser()}
             </div>

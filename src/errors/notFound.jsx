@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Card from './../contents/card';
+import Card from './../components/card';
 
 class NotFound extends Component {
     state = {  } 

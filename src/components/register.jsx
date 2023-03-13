@@ -46,14 +46,14 @@ class Register extends Component {
     return (
       <Card style={{ marginTop: "20px" }}>
         <form>
-          <h3>Register</h3>
+          <h3 className="registerHead">注册</h3>
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">用户名</label>
             <input
               type="text"
               className="form-control"
               id="username"
-              placeholder="Enter username"
+              placeholder="请输入用户名"
               onChange={(e) => {
                 this.setState({
                   username: e.target.value,
@@ -62,12 +62,12 @@ class Register extends Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">密码</label>
             <input
               type="password"
               className="form-control"
               id="password"
-              placeholder="Password"
+              placeholder="请输入密码"
               onChange={(e) => {
                 this.setState({
                   password: e.target.value,
@@ -76,12 +76,12 @@ class Register extends Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="confirm-password">Confirm Password</label>
+            <label htmlFor="confirm-password">确认密码</label>
             <input
               type="password"
               className="form-control"
               id="confirm-password"
-              placeholder="Confirm password"
+              placeholder="请再次输入密码"
               onChange={(e) => {
                 this.setState({
                   passwordConfirm: e.target.value,
@@ -99,7 +99,7 @@ class Register extends Component {
             style={{ marginTop: "20px" }}
             onClick={this.handleClick}
           >
-            Submit
+            确认
           </button>
         </form>
       </Card>
