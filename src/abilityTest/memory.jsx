@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import Card from "./../components/card";
+import ContentBase from './../components/contentBase';
+
 
 class MemoryTest extends Component {
   state = {};
   render() {
-    return <Card style={{ marginTop: "20px" }}>Memory Test</Card>;
+    return <ContentBase>Memory Test</ContentBase>;
   }
 }
 

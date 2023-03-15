@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Card from './card';
-
+import ContentBase from './contentBase';
 
 class Home extends Component {
   state = {};
@@ -22,7 +21,7 @@ class Home extends Component {
 
   render() {
     return (
-        <Card style={{marginTop:"20px"}}>{this.getData()}</Card>
+        <ContentBase>{this.getData()}</ContentBase>
     );
   }
 }

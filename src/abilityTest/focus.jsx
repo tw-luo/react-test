@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Card from "./../components/card";
+import ContentBase from './../components/contentBase';
 
 class FocusTest extends Component {
   state = {};
   render() {
-    return <Card style={{ marginTop: "20px" }}>Focus Test</Card>;
+    return <ContentBase>Focus Test</ContentBase>;
   }
 }
 

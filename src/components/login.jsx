@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import Card from "./card";
 import $ from "jquery";
-
+import ContentBase from './contentBase';
 class Login extends Component {
   state = {
     errorMessage: "",
@@ -38,7 +37,7 @@ class Login extends Component {
 
   render() {
     return (
-      <Card style={{ marginTop: "20px" }}>
+      <ContentBase>
         <h3 className="loginHead">登录</h3>
         <form>
           <div className="form-group">
@@ -81,7 +80,7 @@ class Login extends Component {
             确认
           </button>
         </form>
-      </Card>
+      </ContentBase>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Card from "./card";
 import $ from "jquery"
+import ContentBase from './contentBase';
 
 class Register extends Component {
   state = {
@@ -44,7 +44,7 @@ class Register extends Component {
 
   render() {
     return (
-      <Card style={{ marginTop: "20px" }}>
+      <ContentBase>
         <form>
           <h3 className="registerHead">注册</h3>
           <div className="form-group">
@@ -102,7 +102,7 @@ class Register extends Component {
             确认
           </button>
         </form>
-      </Card>
+      </ContentBase>
     );
   }
 }
