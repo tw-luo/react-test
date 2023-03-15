@@ -19,3 +19,12 @@ code {
 .registerHead{
   font-size: 20px;
 }
+
+.testTitle{
+  font-size: 26px;
+}
+
+.testInstruction{
+  font-size: 20px;
+  margin-top: 20px;
+}

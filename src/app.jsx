@@ -15,8 +15,8 @@ import ReflexTest from "./abilityTest/reflex";
 
 class APP extends Component {
   state = {
-    isLogin: false,
-    username: "",
+    isLogin: true,
+    username: "luo",
   };
 
   componentDidMount() {
