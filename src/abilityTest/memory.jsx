@@ -58,9 +58,8 @@ class MemoryTest extends Component {
   };
 
   handleSubmit=(val)=>{
-    val.replace("，",",");
-    console.log(val);
-
+    const newVal=val.replace("，",",");
+    console.log(newVal);
     this.setState({
       status:Status.END
     })
