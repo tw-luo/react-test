@@ -28,3 +28,16 @@ code {
   font-size: 20px;
   margin-top: 20px;
 }
+
+.words{
+  padding: 5px;
+  font-size: 20px;
+}
+
+.words:nth-child(odd){
+  background-color: beige;
+}
+
+.words:nth-child(even){
+  background-color: azure;
+}
