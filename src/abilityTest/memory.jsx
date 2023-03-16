@@ -14,6 +14,7 @@ class MemoryTest extends Component {
     wordList: [],
     shuffleWordList: [],
     startAnswer: false,
+    memoryTime:10,
   };
 
   generateWordList = (num) => {
@@ -57,9 +58,13 @@ class MemoryTest extends Component {
     window.location.href = "/";
   };
 
-  handleSubmit=(val)=>{
+handleSubmit=(val)=>{
     const newVal=val.replace("，",",");
     console.log(newVal);
+
+    //To do
+    //变成数组，再计算得分，再上传数据库
+    
     this.setState({
       status:Status.END
     })
@@ -72,7 +77,7 @@ class MemoryTest extends Component {
           <div className="testTitle">测试说明</div>
           <pre className="testInstruction">
             {
-              "本测试将随机生成10个单词，你需要在5s中内记住这10个单词出现的位置。\n\n接下来将会随机打乱单词的顺序，你需要依次回答这些单词的初始位置。"
+              "本测试将随机生成10个单词，你需要在规定时间内记住这10个单词出现的位置。\n\n接下来将会随机打乱单词的顺序，你需要依次回答这些单词的初始位置。"
             }
           </pre>
           <div className="row">
@@ -92,9 +97,9 @@ class MemoryTest extends Component {
     } else if (this.state.status === Status.RUNNING) {
       return (
         <React.Fragment>
-          <WordList wordList={this.state.wordList} timer={5}></WordList>
+          <WordList wordList={this.state.wordList} timer={this.state.memoryTime}></WordList>
           <ConfirmWordList
-            wordList={this.state.shuffleWordList} timer={5}
+            wordList={this.state.shuffleWordList} timer={this.state.memoryTime}
             handleSubmit={this.handleSubmit}
           ></ConfirmWordList>
         </React.Fragment>
