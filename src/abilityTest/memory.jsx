@@ -13,8 +13,8 @@ class MemoryTest extends Component {
     isLogin: this.props.isLogin,
     wordList: [],
     shuffleWordList: [],
-    memoryTime: 3,
-    wordNum:2,
+    memoryTime: 10,
+    wordNum:10,
     score: 0,
   };
 
@@ -82,6 +82,10 @@ class MemoryTest extends Component {
 
     console.log(score);
 
+    /**Todo
+     * 使用ajax将score上传到服务器
+     */
+
     this.setState({
       status: Status.END,
       score: score,
@@ -95,7 +99,7 @@ class MemoryTest extends Component {
           <div className="testTitle">测试说明</div>
           <pre className="testInstruction">
             {
-              "本测试将随机生成10个单词，你需要在规定时间内记住这10个单词出现的位置。\n\n接下来将会随机打乱单词的顺序，你需要依次回答这些单词的初始位置。"
+              "本测试将随机生成 10 个单词，你需要在规定时间内记住这 10 个单词出现的位置。\n\n接下来将会随机打乱单词的顺序，你需要依次回答这些单词的初始位置。"
             }
           </pre>
           <div className="row">
