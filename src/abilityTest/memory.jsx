@@ -13,8 +13,9 @@ class MemoryTest extends Component {
     isLogin: this.props.isLogin,
     wordList: [],
     shuffleWordList: [],
-    startAnswer: false,
-    memoryTime:10,
+    memoryTime: 3,
+    wordNum:2,
+    score: 0,
   };
 
   generateWordList = (num) => {
@@ -41,11 +42,11 @@ class MemoryTest extends Component {
   };
 
   startTest = () => {
-    const words = this.generateWordList(10);
+    const words = this.generateWordList(this.state.wordNum);
     const shuffled = this.shuffleArray(words);
 
-    console.log(words);
-    console.log(shuffled);
+    //console.log(words);
+    //console.log(shuffled);
 
     this.setState({
       status: Status.RUNNING,
@@ -58,17 +59,34 @@ class MemoryTest extends Component {
     window.location.href = "/";
   };
 
-handleSubmit=(val)=>{
-    const newVal=val.replace("，",",");
+  continueTest=()=>{
+    this.setState({
+      status:Status.START
+    })
+  }
+
+  handleSubmit = (val) => {
+    const newVal = val.replace("，", ",");
     console.log(newVal);
 
     //To do
     //变成数组，再计算得分，再上传数据库
-    
+    const arr = newVal.split(",").map((item) => parseInt(item));
+    let score = 0;
+
+    for (let i = 0; i < arr.length; ++i) {
+      if(this.state.shuffleWordList[i]===this.state.wordList[arr[i]-1]){
+        score++;
+      }
+    }
+
+    console.log(score);
+
     this.setState({
-      status:Status.END
-    })
-  }
+      status: Status.END,
+      score: score,
+    });
+  };
 
   game() {
     if (this.state.status === Status.START) {
@@ -97,15 +115,40 @@ handleSubmit=(val)=>{
     } else if (this.state.status === Status.RUNNING) {
       return (
         <React.Fragment>
-          <WordList wordList={this.state.wordList} timer={this.state.memoryTime}></WordList>
+          <WordList
+            wordList={this.state.wordList}
+            timer={this.state.memoryTime}
+          ></WordList>
           <ConfirmWordList
-            wordList={this.state.shuffleWordList} timer={this.state.memoryTime}
+            wordList={this.state.shuffleWordList}
+            timer={this.state.memoryTime}
             handleSubmit={this.handleSubmit}
           ></ConfirmWordList>
         </React.Fragment>
       );
     } else {
-      return <div>game over</div>;
+      return (
+        <Card>
+          <div className="testTitle">测试说明</div>
+          <pre className="testInstruction">
+            {
+              `测试结束，你的得分是 ${this.state.score} 分。`
+            }
+          </pre>
+          <div className="row">
+            <div className="col-sm-2">
+              <button className="btn btn-primary" onClick={this.continueTest}>
+                继续测试
+              </button>
+            </div>
+            <div className="col-sm-2">
+              <button className="btn btn-danger" onClick={this.cancelTest}>
+                返回主页
+              </button>
+            </div>
+          </div>
+        </Card>
+      );
     }
   }
 
