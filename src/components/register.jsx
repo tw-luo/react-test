@@ -22,7 +22,7 @@ class Register extends Component {
       this.setState({ errorMessage: "两次输入的密码不一致" });
     } else {
       $.ajax({
-        url: "https://app165.acapp.acwing.com.cn/calculator/register/",
+        url: "localhost:8000/api/register/",
         type: "get",
         data: {
           username: this.state.username,

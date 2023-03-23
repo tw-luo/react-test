@@ -16,7 +16,7 @@ class Login extends Component {
       this.setState({ errorMessage: "密码不能为空" });
     }else {
         $.ajax({
-            url: "c",
+            url: "localhost:8000/api/login/",
             type: "get",
             data: {
                 username: this.state.username,

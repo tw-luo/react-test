@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.js";
 import { Routes, Route } from "react-router-dom";
 
-//import $ from "jquery";
+import $ from "jquery";
 import NavBar from "./components/navBar";
 import Home from "./components/home";
 import Login from "./components/login";
@@ -20,23 +20,23 @@ class APP extends Component {
   };
 
   componentDidMount() {
-    // $.ajax({
-    //   url: "https://app165.acapp.acwing.com.cn/calculator/get_status/",
-    //   type: "get",
-    //   success: (resp) => {
-    //     console.log(resp);
-    //     if (resp.result === "login") {
-    //       this.setState({
-    //         isLogin: true,
-    //         username: resp.username,
-    //       });
-    //     } else {
-    //       this.setState({
-    //         isLogin: false,
-    //       });
-    //     }
-    //   },
-    // });
+    $.ajax({
+      url: "localhost:8000/api/get_status",
+      type: "get",
+      success: (resp) => {
+        console.log(resp);
+        if (resp.result === "login") {
+          this.setState({
+            isLogin: true,
+            username: resp.username,
+          });
+        } else {
+          this.setState({
+            isLogin: false,
+          });
+        }
+      },
+    });
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-// import $ from "jquery";
+import $ from "jquery";
 
 class NavBar extends Component {
   state = {};
@@ -31,7 +31,17 @@ class NavBar extends Component {
   };
 
   handleLogout = (e) => {
-    e.preventDefault();
+    $.ajax({
+      url: "localhost:8000/api/logout",
+      type: "get",
+      success: resp => {
+          console.log(resp);
+          if (resp.result === "success") {
+              window.location.href="/";
+          }
+      }
+  });
+
   };
 
   renderUser = () => {
