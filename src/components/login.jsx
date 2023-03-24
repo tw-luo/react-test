@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import $ from "jquery";
-import ContentBase from './contentBase';
+import ContentBase from "./contentBase";
 class Login extends Component {
   state = {
     errorMessage: "",
@@ -14,24 +14,24 @@ class Login extends Component {
       this.setState({ errorMessage: "用户名不能为空" });
     } else if (this.state.password === "") {
       this.setState({ errorMessage: "密码不能为空" });
-    }else {
-        $.ajax({
-            url: "localhost:8000/api/login/",
-            type: "get",
-            data: {
-                username: this.state.username,
-                password: this.state.password,
-            },
-            dataType: "json",
-            success: resp => {
-                console.log(resp.result);
-                if (resp.result === "success") {
-                    window.location.href="/";
-                } else {
-                    this.setState({errorMessage: resp.result});
-                }
-            }
-        });
+    } else {
+      $.ajax({
+        url: "http://8.210.54.72:8000/game/api/login/",
+        type: "get",
+        data: {
+          username: this.state.username,
+          password: this.state.password,
+        },
+        dataType: "json",
+        success: (resp) => {
+          console.log(resp.result);
+          if (resp.result === "success") {
+            window.location.href = "/";
+          } else {
+            this.setState({ errorMessage: resp.result });
+          }
+        },
+      });
     }
   };
 

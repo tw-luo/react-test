@@ -32,7 +32,7 @@ class NavBar extends Component {
 
   handleLogout = (e) => {
     $.ajax({
-      url: "localhost:8000/api/logout",
+      url: "http://8.210.54.72:8000/game/api/logout/",
       type: "get",
       success: resp => {
           console.log(resp);

@@ -15,13 +15,13 @@ import ReflexTest from "./abilityTest/reflex";
 
 class APP extends Component {
   state = {
-    isLogin: true,
-    username: "luo",
+    isLogin: false,
+    username: "",
   };
 
   componentDidMount() {
     $.ajax({
-      url: "localhost:8000/api/get_status",
+      url: "http://8.210.54.72:8000/game/api/get_status/",
       type: "get",
       success: (resp) => {
         console.log(resp);

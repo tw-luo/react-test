@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import $ from "jquery"
-import ContentBase from './contentBase';
+import $ from "jquery";
+import ContentBase from "./contentBase";
 
 class Register extends Component {
   state = {
@@ -22,7 +22,7 @@ class Register extends Component {
       this.setState({ errorMessage: "两次输入的密码不一致" });
     } else {
       $.ajax({
-        url: "localhost:8000/api/register/",
+        url: "http://8.210.54.72:8000/game/api/register/",
         type: "get",
         data: {
           username: this.state.username,
