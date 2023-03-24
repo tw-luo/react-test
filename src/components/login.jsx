@@ -16,7 +16,7 @@ class Login extends Component {
       this.setState({ errorMessage: "密码不能为空" });
     } else {
       $.ajax({
-        url: "http://8.210.54.72:8000/game/api/login/",
+        url: "https://tw-luo-opulent-goldfish-w546v5j77gh56xj-8000.preview.app.github.dev/game/api/login/",
         type: "get",
         data: {
           username: this.state.username,

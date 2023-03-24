@@ -21,7 +21,7 @@ class APP extends Component {
 
   componentDidMount() {
     $.ajax({
-      url: "http://8.210.54.72:8000/game/api/get_status/",
+      url: "https://tw-luo-opulent-goldfish-w546v5j77gh56xj-8000.preview.app.github.dev/game/api/get_status/",
       type: "get",
       success: (resp) => {
         console.log(resp);
