@@ -5,6 +5,7 @@ import Card from "./../components/card";
 import Words from "../utils/word";
 import WordList from "./../components/wordList";
 import ConfirmWordList from "./../components/confirmWordList";
+import $ from 'jquery'
 
 class MemoryTest extends Component {
   state = {
@@ -16,6 +17,7 @@ class MemoryTest extends Component {
     memoryTime: 10,
     wordNum:10,
     score: 0,
+    isUpload: false,
   };
 
   generateWordList = (num) => {
@@ -82,15 +84,31 @@ class MemoryTest extends Component {
 
     console.log(score);
 
-    /**Todo
-     * 使用ajax将score上传到服务器
-     */
-
     this.setState({
       status: Status.END,
       score: score,
     });
   };
+
+  uploadScore=()=>{
+    $.ajax({
+      url: "https://tw-luo-opulent-goldfish-w546v5j77gh56xj-8000.preview.app.github.dev/game/api/add_score/",
+      type: "get",
+      data: {
+        test_type: "memory test",
+        score: this.state.score,
+      },
+      dataType: "json",
+      success: (resp) => {
+        console.log(resp);
+        if (resp.result === "success") {
+          this.setState({isUpload:true});
+        }else{
+          console.log("上传失败");
+        }
+      },
+    });
+  }
 
   game() {
     if (this.state.status === Status.START) {
@@ -131,6 +149,9 @@ class MemoryTest extends Component {
         </React.Fragment>
       );
     } else {
+      if(this.state.isUpload===false){
+        this.uploadScore();
+      }
       return (
         <Card>
           <div className="testTitle">测试说明</div>
