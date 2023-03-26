@@ -22,6 +22,6 @@ jobs:
         run: |
           git config --global user.email "2505412775@qq.com"
           git config --global user.name "tw-luo"
-          git add build
-          git commit -m "Add build folder"
+          git add build/
+          git commit -m "build"
           git push
