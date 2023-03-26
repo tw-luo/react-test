@@ -11,6 +11,7 @@ class FocusTest extends Component {
     status: Status.START,
     username: this.props.username,
     isLogin: this.props.isLogin,
+    timeIntervals:[],
     score: 0,
     isUpload: false,
   };
@@ -32,11 +33,13 @@ class FocusTest extends Component {
   };
 
   handleSubmit = () => {
+    console.log(this.state.timeIntervals);
     console.log("测试结束");
     var score = 0;
     console.log(score);
 
     this.setState({
+      timeIntervals:[],
       status: Status.END,
       score: score,
     });
@@ -90,8 +93,8 @@ class FocusTest extends Component {
       return (
         <React.Fragment>
           <ContentBase>
-            <Timer time={5} onTimeUp={this.handleSubmit}></Timer>
-            <Square></Square>
+            <Timer time={10} onTimeUp={this.handleSubmit}></Timer>
+            <Square timeIntervals={this.state.timeIntervals}></Square>
           </ContentBase>
           
         </React.Fragment>
