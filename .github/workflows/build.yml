@@ -18,8 +18,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.4  # 修改此处为您需要使用的部署Action
-        with:
-          branch: master  # 修改此处为您需要部署的分支
-          folder: build  # 修改此处为您需要部署的文件夹
+      - name: Commit build
+        run: |
+          git config --global user.email "2505412775@qq.com"
+          git config --global user.name "tw_luo"
+          git add build
+          git commit -m "Add build folder"
+          git push
