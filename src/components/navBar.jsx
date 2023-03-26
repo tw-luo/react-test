@@ -34,14 +34,25 @@ class NavBar extends Component {
     $.ajax({
       url: "https://tw-luo-opulent-goldfish-w546v5j77gh56xj-8000.preview.app.github.dev/game/api/logout/",
       type: "get",
-      success: resp => {
-          console.log(resp);
-          if (resp.result === "success") {
-              window.location.href="/";
-          }
-      }
-  });
+      success: (resp) => {
+        console.log(resp);
+        if (resp.result === "success") {
+          window.location.href = "/";
+        }
+      },
+    });
+  };
 
+  renderSuper = () => {
+    if (this.props.isSuper===true) {
+      return (
+        <li className="nav-item">
+          <a className="nav-link active" href="/admin">
+            后台
+          </a>
+        </li>
+      );
+    }
   };
 
   renderUser = () => {
@@ -71,6 +82,7 @@ class NavBar extends Component {
               登出
             </Link>
           </li>
+          {this.renderSuper()}
         </ul>
       );
     }

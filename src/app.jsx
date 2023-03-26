@@ -17,6 +17,7 @@ class APP extends Component {
   state = {
     isLogin: false,
     username: "",
+    isSuper:false,
   };
 
   componentDidMount() {
@@ -29,6 +30,7 @@ class APP extends Component {
           this.setState({
             isLogin: true,
             username: resp.username,
+            isSuper:resp.is_super,
           });
         } else {
           this.setState({
@@ -43,7 +45,7 @@ class APP extends Component {
     return (
       <React.Fragment>
         <div className="container">
-          <NavBar isLogin={this.state.isLogin} username={this.state.username} />
+          <NavBar isLogin={this.state.isLogin} username={this.state.username} isSuper={this.state.isSuper}/>
           <Routes>
             <Route
               path="/"
