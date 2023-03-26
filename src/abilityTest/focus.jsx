@@ -35,6 +35,26 @@ class FocusTest extends Component {
   handleSubmit = () => {
     console.log(this.state.timeIntervals);
     console.log("测试结束");
+
+    const times=this.state.timeIntervals;
+
+    var sum_time=0;
+    var len=times.length-1;
+    for (let index = 0; index < times.length-1; index++) {
+      const element = times[index];
+      sum_time+=element;
+    }
+
+    var back=times.pop();
+    if(back!==1000){
+      sum_time+=back;
+      len+=1;
+    }
+
+    var aver_time=sum_time/len;
+
+    console.log(aver_time);
+
     var score = 0;
     console.log(score);
 
