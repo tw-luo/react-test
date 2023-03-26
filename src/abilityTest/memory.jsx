@@ -95,7 +95,7 @@ class MemoryTest extends Component {
       url: "https://tw-luo-opulent-goldfish-w546v5j77gh56xj-8000.preview.app.github.dev/game/api/add_score/",
       type: "get",
       data: {
-        test_type: "memory test",
+        test_type: "记忆力测试",
         score: this.state.score,
       },
       dataType: "json",
@@ -104,7 +104,7 @@ class MemoryTest extends Component {
         if (resp.result === "success") {
           this.setState({isUpload:true});
         }else{
-          console.log("上传失败");
+          alert("上传失败");
         }
       },
     });
@@ -189,7 +189,7 @@ class MemoryTest extends Component {
     return (
       <ContentBase>
         <Card style={{ marginBottom: "20px" }}>
-          <h2>Memory Test</h2>
+          <h2>记忆力测试</h2>
         </Card>
         {this.test()}
       </ContentBase>
