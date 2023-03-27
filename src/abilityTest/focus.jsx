@@ -4,16 +4,19 @@ import Status from "./TestStatus";
 import Card from "./../components/card";
 import $ from "jquery";
 import Square from "./../components/square";
-import Timer from './../components/timer';
+import Timer from "./../components/timer";
 
 class FocusTest extends Component {
   state = {
     status: Status.START,
     username: this.props.username,
     isLogin: this.props.isLogin,
-    timeIntervals:[],
+    timeIntervals: [],
+    averTime: 0,
     score: 0,
     isUpload: false,
+    clickCount: 0,
+    isCheat: false,
   };
 
   startTest = () => {
@@ -32,36 +35,59 @@ class FocusTest extends Component {
     });
   };
 
+  calculateScore = (aver_time) => {
+    // 首先将aver_time映射到0-1之间的值
+    const normalizedTime = Math.min(Math.max(aver_time / 1000, 0), 1);
+
+    // 然后将normalizedTime映射到0-10之间的值
+    const score = Math.floor(10 * (1 - normalizedTime));
+
+    return score;
+  };
+
+  handleClick = () => {
+    this.setState((prevState) => ({ clickCount: prevState.clickCount + 1 }));
+  };
+
+  isCheating(changeCount) {
+    const { clickCount } = this.state;
+    return clickCount >= 2 * changeCount;
+  }
+
   handleSubmit = () => {
     console.log(this.state.timeIntervals);
     console.log("测试结束");
 
-    const times=this.state.timeIntervals;
+    const times = this.state.timeIntervals;
 
-    var sum_time=0;
-    var len=times.length-1;
-    for (let index = 0; index < times.length-1; index++) {
+    var sum_time = 0;
+    var len = times.length - 1;
+    for (let index = 0; index < times.length - 1; index++) {
       const element = times[index];
-      sum_time+=element;
+      sum_time += element;
     }
 
-    var back=times.pop();
-    if(back!==1000){
-      sum_time+=back;
-      len+=1;
+    var back = times.pop();
+    if (back !== 1000) {
+      sum_time += back;
+      len += 1;
     }
 
-    var aver_time=sum_time/len;
+    var aver_time = sum_time / len;
 
     console.log(aver_time);
 
-    var score = 0;
+    var score = this.calculateScore(aver_time);
     console.log(score);
 
+    var cheat = this.isCheating(len);
+
     this.setState({
-      timeIntervals:[],
+      timeIntervals: [],
       status: Status.END,
       score: score,
+      averTime: aver_time,
+      isCheat: cheat,
     });
   };
 
@@ -92,7 +118,7 @@ class FocusTest extends Component {
           <div className="testTitle">测试说明</div>
           <pre className="testInstruction">
             {
-              "本测试将随机改变方块颜色，你需要在方块颜色改变的时候立刻点击方块。"
+              "本测试将会随机改变方块颜色，你需要在方块颜色改变的时候立刻点击方块。\n\n点击方块的速度越快，你的得分就越高\n\n注意，请勿一直点击方块，否则将会被认为作弊！"
             }
           </pre>
           <div className="row">
@@ -114,35 +140,60 @@ class FocusTest extends Component {
         <React.Fragment>
           <ContentBase>
             <Timer time={10} onTimeUp={this.handleSubmit}></Timer>
-            <Square timeIntervals={this.state.timeIntervals}></Square>
+            <Square
+              timeIntervals={this.state.timeIntervals}
+              click={this.handleClick}
+            ></Square>
           </ContentBase>
-          
         </React.Fragment>
       );
     } else {
-      if (this.state.isUpload === false) {
-        this.uploadScore();
+      if (this.state.isCheat === true) {
+        return (
+          <Card>
+            <div className="testTitle">测试说明</div>
+            <pre className="testInstruction">
+              系统检测到您本次测试存在作弊行为，本次测试不计入成绩。
+            </pre>
+            <div className="row">
+              <div className="col-sm-2">
+                <button className="btn btn-primary" onClick={this.continueTest}>
+                  继续测试
+                </button>
+              </div>
+              <div className="col-sm-2">
+                <button className="btn btn-danger" onClick={this.cancelTest}>
+                  返回主页
+                </button>
+              </div>
+            </div>
+          </Card>
+        );
+      } else {
+        if (this.state.isUpload === false) {
+          this.uploadScore();
+        }
+        return (
+          <Card>
+            <div className="testTitle">测试说明</div>
+            <pre className="testInstruction">
+              {`测试结束，你的得分是 ${this.state.score} 分。`}
+            </pre>
+            <div className="row">
+              <div className="col-sm-2">
+                <button className="btn btn-primary" onClick={this.continueTest}>
+                  继续测试
+                </button>
+              </div>
+              <div className="col-sm-2">
+                <button className="btn btn-danger" onClick={this.cancelTest}>
+                  返回主页
+                </button>
+              </div>
+            </div>
+          </Card>
+        );
       }
-      return (
-        <Card>
-          <div className="testTitle">测试说明</div>
-          <pre className="testInstruction">
-            {`测试结束，你的得分是 ${this.state.score} 分。`}
-          </pre>
-          <div className="row">
-            <div className="col-sm-2">
-              <button className="btn btn-primary" onClick={this.continueTest}>
-                继续测试
-              </button>
-            </div>
-            <div className="col-sm-2">
-              <button className="btn btn-danger" onClick={this.cancelTest}>
-                返回主页
-              </button>
-            </div>
-          </div>
-        </Card>
-      );
     }
   }
 
