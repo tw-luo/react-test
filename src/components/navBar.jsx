@@ -43,13 +43,18 @@ class NavBar extends Component {
     });
   };
 
+  toAdminPage=(e)=>{
+    e.preventDefault();
+    window.location.href = "/admin/";
+  }
+
   renderSuper = () => {
     if (this.props.isSuper===true) {
       return (
         <li className="nav-item">
-          <a className="nav-link active" href="/admin/">
+          <Link className="nav-link active" onClick={this.toAdminPage}>
             后台
-          </a>
+          </Link>
         </li>
       );
     }
