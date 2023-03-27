@@ -82,6 +82,7 @@ class ReflexTest extends Component {
   };
 
   uploadScore = () => {
+    this.setState({ isUpload: true });
     $.ajax({
       url: "https://tw-luo-opulent-goldfish-w546v5j77gh56xj-8000.preview.app.github.dev/game/api/add_score/",
       type: "get",
@@ -93,7 +94,7 @@ class ReflexTest extends Component {
       success: (resp) => {
         console.log(resp);
         if (resp.result === "success") {
-          this.setState({ isUpload: true });
+          alert("上传成绩成功");
         } else {
           alert("上传失败");
         }
