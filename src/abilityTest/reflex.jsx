@@ -20,6 +20,10 @@ class ReflexTest extends Component {
   startTest = () => {
     this.setState({
       status: Status.RUNNING,
+      score: 0,
+      isUpload: false,
+      isCheat: false,
+      clickCount: 0,
     });
   };
 
@@ -42,7 +46,7 @@ class ReflexTest extends Component {
     return clickCount >= 2 * changeCount;
   }
 
-  countNumbersLessThan=(numbers, cnt)=> {
+  countNumbersLessThan = (numbers, cnt) => {
     let count = 0;
     for (let i = 0; i < numbers.length; i++) {
       if (numbers[i] < cnt) {
@@ -50,7 +54,7 @@ class ReflexTest extends Component {
       }
     }
     return count;
-  }
+  };
 
   handleSubmit = () => {
     const { clickCount } = this.state;
@@ -67,7 +71,7 @@ class ReflexTest extends Component {
       numbers.push(number);
     }
 
-    count=this.countNumbersLessThan(numbers,clickCount);
+    count = this.countNumbersLessThan(numbers, clickCount);
 
     var score = Math.floor(count / 10);
 

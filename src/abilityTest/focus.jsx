@@ -22,6 +22,12 @@ class FocusTest extends Component {
   startTest = () => {
     this.setState({
       status: Status.RUNNING,
+      timeIntervals: [],
+      averTime: 0,
+      score: 0,
+      isUpload: false,
+      clickCount: 0,
+      isCheat: false,
     });
   };
 

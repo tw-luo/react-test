@@ -5,7 +5,7 @@ import Card from "./../components/card";
 import Words from "../utils/word";
 import WordList from "./../components/wordList";
 import ConfirmWordList from "./../components/confirmWordList";
-import $ from 'jquery'
+import $ from "jquery";
 
 class MemoryTest extends Component {
   state = {
@@ -15,7 +15,7 @@ class MemoryTest extends Component {
     wordList: [],
     shuffleWordList: [],
     memoryTime: 10,
-    wordNum:10,
+    wordNum: 10,
     score: 0,
     isUpload: false,
   };
@@ -54,6 +54,10 @@ class MemoryTest extends Component {
       status: Status.RUNNING,
       wordList: words,
       shuffleWordList: shuffled,
+      memoryTime: 10,
+      wordNum: 10,
+      score: 0,
+      isUpload: false,
     });
   };
 
@@ -61,11 +65,11 @@ class MemoryTest extends Component {
     window.location.href = "/";
   };
 
-  continueTest=()=>{
+  continueTest = () => {
     this.setState({
-      status:Status.START
-    })
-  }
+      status: Status.START,
+    });
+  };
 
   handleSubmit = (val) => {
     const newVal = val.replace("，", ",");
@@ -77,7 +81,7 @@ class MemoryTest extends Component {
     let score = 0;
 
     for (let i = 0; i < arr.length; ++i) {
-      if(this.state.shuffleWordList[i]===this.state.wordList[arr[i]-1]){
+      if (this.state.shuffleWordList[i] === this.state.wordList[arr[i] - 1]) {
         score++;
       }
     }
@@ -90,7 +94,7 @@ class MemoryTest extends Component {
     });
   };
 
-  uploadScore=()=>{
+  uploadScore = () => {
     $.ajax({
       url: "https://tw-luo-opulent-goldfish-w546v5j77gh56xj-8000.preview.app.github.dev/game/api/add_score/",
       type: "get",
@@ -102,13 +106,13 @@ class MemoryTest extends Component {
       success: (resp) => {
         console.log(resp);
         if (resp.result === "success") {
-          this.setState({isUpload:true});
-        }else{
+          this.setState({ isUpload: true });
+        } else {
           alert("上传失败");
         }
       },
     });
-  }
+  };
 
   game() {
     if (this.state.status === Status.START) {
@@ -149,16 +153,14 @@ class MemoryTest extends Component {
         </React.Fragment>
       );
     } else {
-      if(this.state.isUpload===false){
+      if (this.state.isUpload === false) {
         this.uploadScore();
       }
       return (
         <Card>
           <div className="testTitle">测试说明</div>
           <pre className="testInstruction">
-            {
-              `测试结束，你的得分是 ${this.state.score} 分。`
-            }
+            {`测试结束，你的得分是 ${this.state.score} 分。`}
           </pre>
           <div className="row">
             <div className="col-sm-2">
