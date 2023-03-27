@@ -47,3 +47,15 @@ code {
   width: 200px;
   
 }
+
+.reflex-square{
+  height: 100px;
+  margin: 20px;
+  display: flex; /* 将 square 元素设置为 flex 容器 */
+  justify-content: center; /* 将 square 中的元素水平居中 */
+  align-items: center; /* 将 square 中的元素垂直居中 */
+}
+
+.reflex-select{
+  background-color: aqua;
+}
