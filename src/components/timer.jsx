@@ -36,6 +36,7 @@ class Timer extends Component {
           alignItems: "center",
           height: "auto", // 设置高度为auto
           backgroundColor: "#f5f5f5",
+          marginBottom:"20px"
         }}
       >
         <div
