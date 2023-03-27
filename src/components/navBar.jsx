@@ -30,7 +30,7 @@ class NavBar extends Component {
     return "";
   };
 
-  handleLogout = (e) => {
+  handleLogout = () => {
     $.ajax({
       url: "https://tw-luo-opulent-goldfish-w546v5j77gh56xj-8000.preview.app.github.dev/game/api/logout/",
       type: "get",
@@ -47,7 +47,7 @@ class NavBar extends Component {
     if (this.props.isSuper===true) {
       return (
         <li className="nav-item">
-          <a className="nav-link active" href="/admin">
+          <a className="nav-link active" href="/admin/">
             后台
           </a>
         </li>
