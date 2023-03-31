@@ -21,6 +21,8 @@ class MemoryTest extends Component {
     isUpload: false,
     wrongWords: null,
     showWrongWords: false,
+    userWrongWords: null,
+    isShowUserWrongWords: false,
   };
 
   generateWordList = (num) => {
@@ -63,6 +65,8 @@ class MemoryTest extends Component {
       isUpload: false,
       wrongWords: null,
       showWrongWords: false,
+      userWrongWords: null,
+      isShowUserWrongWords: false,
     });
   };
 
@@ -85,9 +89,19 @@ class MemoryTest extends Component {
     const arr = newVal.split(",").map((item) => parseInt(item));
     let score = 0;
 
+    var st = Array(this.state.wordNum).fill(false);
+
     for (let i = 0; i < arr.length; ++i) {
       if (this.state.shuffleWordList[i] === this.state.wordList[arr[i] - 1]) {
+        st[arr[i] - 1] = true;
         score++;
+      }
+    }
+
+    var userWrongWords = [];
+    for (let i = 0; i < st.length; ++i) {
+      if (st[i] === false) {
+        userWrongWords.push(this.state.wordList[i]);
       }
     }
 
@@ -96,6 +110,7 @@ class MemoryTest extends Component {
     this.setState({
       status: Status.END,
       score: score,
+      userWrongWords: userWrongWords,
     });
   };
 
@@ -113,8 +128,8 @@ class MemoryTest extends Component {
           }
         }
         this.setState({ showWrongWords: true, wrongWords: myEasyWrongWords });
-      }else{
-        this.setState({showWrongWords:true});
+      } else {
+        this.setState({ showWrongWords: true });
       }
     }
   };
@@ -122,6 +137,18 @@ class MemoryTest extends Component {
   cancelViewWrongWords = () => {
     if (this.state.showWrongWords === true) {
       this.setState({ showWrongWords: false });
+    }
+  };
+
+  viewUserWrongWords = () => {
+    if (this.state.isShowUserWrongWords === false) {
+      this.setState({ isShowUserWrongWords: true });
+    }
+  };
+
+  cacelViewUserWrongWords = () => {
+    if (this.state.isShowUserWrongWords === true) {
+      this.setState({ isShowUserWrongWords: false });
     }
   };
 
@@ -182,6 +209,7 @@ class MemoryTest extends Component {
             visible={this.state.showWrongWords}
             wordList={this.state.wrongWords}
             cancelView={this.cancelViewWrongWords}
+            info={"以下是系统推荐的易错词汇"}
           ></WrongWords>
         </React.Fragment>
       );
@@ -204,24 +232,41 @@ class MemoryTest extends Component {
         this.uploadScore();
       }
       return (
-        <Card>
-          <div className="testTitle">测试说明</div>
-          <pre className="testInstruction">
-            {`测试结束，你的得分是 ${this.state.score} 分。`}
-          </pre>
-          <div className="row">
-            <div className="col-sm-2">
-              <button className="btn btn-primary" onClick={this.continueTest}>
-                继续测试
-              </button>
+        <React.Fragment>
+          <Card>
+            <div className="testTitle">测试说明</div>
+            <pre className="testInstruction">
+              {`测试结束，你的得分是 ${this.state.score} 分。`}
+            </pre>
+            <div className="row">
+              <div className="col-sm-2">
+                <button className="btn btn-primary" onClick={this.continueTest}>
+                  继续测试
+                </button>
+              </div>
+              <div className="col-sm-2">
+                <button className="btn btn-danger" onClick={this.cancelTest}>
+                  返回主页
+                </button>
+              </div>
+              <div className="col-sm-2">
+                <button
+                  className="btn btn-secondary"
+                  onClick={this.viewUserWrongWords}
+                >
+                  查看错误单词
+                </button>
+              </div>
             </div>
-            <div className="col-sm-2">
-              <button className="btn btn-danger" onClick={this.cancelTest}>
-                返回主页
-              </button>
-            </div>
-          </div>
-        </Card>
+          </Card>
+          <WrongWords
+            visible={this.state.isShowUserWrongWords}
+            wordList={this.state.userWrongWords}
+            cancelView={this.cacelViewUserWrongWords}
+            info={"以下是你记错了的单词"}
+            textColor={"red"}
+          ></WrongWords>
+        </React.Fragment>
       );
     }
   }
