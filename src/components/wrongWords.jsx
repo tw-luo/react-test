@@ -4,18 +4,18 @@ import Card from "./card";
 class WrongWords extends Component {
  
   render() {
-    const {visible}=this.props;
+    const {visible,textColor,info,cancelView}=this.props;
     return visible ? (
       <Card>
-        <div className="hint" style={{marginBottom:"10px"}}>以下是系统推荐的易错词汇</div>
+        <div className="hint" style={{marginBottom:"10px"}}>{info}</div>
         {this.props.wordList.map((word) => {
           return (
-            <div key={word} className="words">
+            <div key={word} className="words" style={{color:textColor}}>
               {word}
             </div>
           );
         })}
-        <button className="btn btn-primary" onClick={this.props.cancelView}>
+        <button className="btn btn-primary" onClick={cancelView} style={{marginTop:"10px"}}>
                 收起
         </button>
       </Card>
