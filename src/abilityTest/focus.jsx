@@ -55,9 +55,32 @@ class FocusTest extends Component {
     this.setState((prevState) => ({ clickCount: prevState.clickCount + 1 }));
   };
 
+  checkCheat=(cnt, clickCount, clickValidCount)=> {
+    // 可根据实际情况调整阈值
+    const cheatingThresholds = {
+      clickRatio: 2,
+      validClickRatio: 0.95,
+    };
+  
+    // 计算点击比率和有效点击比率
+    const clickRatio = clickCount / cnt;
+    const validClickRatio = clickValidCount / clickCount;
+  
+    // 使用决策树判断用户是否作弊
+    if (clickRatio > cheatingThresholds.clickRatio) {
+      if (validClickRatio > cheatingThresholds.validClickRatio) {
+        return true; // 作弊
+      } else {
+        return false; // 正常
+      }
+    } else {
+      return false; // 正常
+    }
+  }
+
   isCheating(changeCount) {
     const { clickCount } = this.state;
-    return clickCount >= 2 * changeCount;
+    return this.checkCheat(changeCount, clickCount, clickCount);
   }
 
   handleSubmit = () => {
